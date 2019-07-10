@@ -1,0 +1,10 @@
+﻿  stdafx.cpp
+  IOCPclient.cpp
+  client.cpp
+d:\program design\software engineeing c++\iocp\iocpclient\iocpclient\client.cpp(108): warning C4477: “sprintf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 2 拥有了类型“const wchar_t *”
+  d:\program design\software engineeing c++\iocp\iocpclient\iocpclient\client.cpp(108): note: 请考虑在格式字符串中使用“%ls”
+  d:\program design\software engineeing c++\iocp\iocpclient\iocpclient\client.cpp(108): note: 请考虑在格式字符串中使用“%lls”
+  d:\program design\software engineeing c++\iocp\iocpclient\iocpclient\client.cpp(108): note: 请考虑在格式字符串中使用“%Ls”
+  d:\program design\software engineeing c++\iocp\iocpclient\iocpclient\client.cpp(108): note: 请考虑在格式字符串中使用“%ws”
+  正在生成代码...
+  IOCPclient.vcxproj -> D:\Program design\Software Engineeing c++\IOCP\IOCPclient\Debug\IOCPclient.exe

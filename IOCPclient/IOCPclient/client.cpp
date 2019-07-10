@@ -34,11 +34,11 @@ DWORD WINAPI CClient::_ConnectionThread(LPVOID lpParam)
 	THREADPARAMS_CONNECTION* pParams = (THREADPARAMS_CONNECTION*)lpParam;
 	CClient* pClient = (CClient*)pParams->pClient;
 
-	TRACE("_AccpetThread start£¬system listening...\n");
+	printf("_AccpetThread start£¬system listening...\n");
 
 	pClient->EstablishConnections();
 
-	TRACE(_T("_ConnectionThread thread shut down.\n"));
+	printf("_ConnectionThread thread shut down.\n");
 
 	RELEASE(pParams);
 
@@ -68,11 +68,10 @@ DWORD WINAPI CClient::_WorkerThread(LPVOID lpParam)
 	nBytesSent = send(pParams->sock, szTemp, strlen(szTemp), 0);
 	if (SOCKET_ERROR == nBytesSent)
 	{
-		TRACE("Error: fail to send one message, Error num£º%ld\n", WSAGetLastError());
+		printf("Error: fail to send one message, Error num£º%ld\n", WSAGetLastError());
 		return 1;
 	}
-	TRACE("Sending message to server succeed: %s\n", szTemp);
-	pClient->ShowMessage(_T("Sending message to server succeed: %s"), szTemp);
+	printf("Sending message to server succeed: %s\n", szTemp);
 
 	Sleep(3000);
 
@@ -93,14 +92,14 @@ bool  CClient::EstablishConnections()
 		//listen user's shut down event
 		if (WAIT_OBJECT_0 == WaitForSingleObject(m_hShutdownEvent, 0))
 		{
-			TRACE(_T("Receive user's shut down command.\n"));
+			printf("Receive user's shut down command.\n");
 			return true;
 		}
 
 		//connect to server
 		if (!this->ConnetToServer(&m_pParamsWorker[i].sock, m_strServerIP, m_nPort))
 		{
-			ShowMessage(_T("Fail to connect to server!"));
+			printf("Fail to connect to server!");
 			CleanUp();
 			return false;
 		}
@@ -129,7 +128,7 @@ bool CClient::ConnetToServer(SOCKET *pSocket, CString strServer, int nPort)
 
 	if (INVALID_SOCKET == *pSocket)
 	{
-		TRACE("Error: Socket initialization failed, Error num£º%d\n", WSAGetLastError());
+		printf("Error: Socket initialization failed, Error num£º%d\n", WSAGetLastError());
 		return false;
 	}
 
@@ -141,7 +140,7 @@ bool CClient::ConnetToServer(SOCKET *pSocket, CString strServer, int nPort)
 	if (Server == NULL)
 	{
 		closesocket(*pSocket);
-		TRACE("Error: invalid IP address.\n");
+		printf("Error: invalid IP address.\n");
 		return false;
 	}
 
@@ -158,7 +157,7 @@ bool CClient::ConnetToServer(SOCKET *pSocket, CString strServer, int nPort)
 	if (SOCKET_ERROR == connect(*pSocket, reinterpret_cast<const struct sockaddr *>(&ServerAddress), sizeof(ServerAddress)))
 	{
 		closesocket(*pSocket);
-		TRACE("Error: fail to connect to server\n");
+		printf("Error: fail to connect to server\n");
 		return false;
 	}
 
@@ -173,7 +172,7 @@ bool CClient::LoadSocketLib()
 
 	if (NO_ERROR != nResult)
 	{
-		ShowMessage(_T("WinSock 2.2 initialization failed!\n"));
+		printf("WinSock 2.2 initialization failed!\n");
 		return false; //Error
 	}
 
@@ -216,7 +215,7 @@ void CClient::Stop()
 	//release resource
 	CleanUp();
 
-	TRACE("test stop.\n");
+	printf("test stop.\n");
 }
 
 //release resource
@@ -254,10 +253,4 @@ CString CClient::GetLocalIP()
 	m_strLocalIP = CString(inet_ntoa(inAddr));      //change IP address into string
 
 	return m_strLocalIP;
-}
-
-//show message
-void CClient::ShowMessage(const CString strInfo, ...)
-{
-	//TODO: print message on client main page
 }

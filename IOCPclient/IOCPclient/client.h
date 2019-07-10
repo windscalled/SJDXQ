@@ -65,9 +65,6 @@ public:
 	//set sending message
 	void SetMessage(const CString& strMessage) { m_strMessage = strMessage; }
 
-	//show message
-	void ShowMessage(const CString strInfo, ...);
-
 private:
 
 	//establish connections
