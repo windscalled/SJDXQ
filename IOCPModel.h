@@ -182,8 +182,8 @@ protected:
 	void _ShowMessage(const CString szFormat, ...) const;
 
 private:
-	HANDLE                        m_hShutdownEvent;              //broadcast that system has shut down
-	HANDLE                        m_hIOCompletionPort;           //handle of IOCP
+	HANDLE                        m_hShutdownEvent;             //broadcast that system has shut down
+	HANDLE                        m_hIOCompletionPort;          //handle of IOCP
 	HANDLE*                       m_phWorkerThreads;            //pointer of worker thread
 	int                           m_nThreads;                   //number of threads
 	CString                       m_strIP;                      //IP address of server
